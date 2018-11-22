@@ -1,0 +1,15 @@
+{
+  "name": "kodemia",
+  "version": "1.0.0",
+  "description": "api kodemia",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "caro",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mongoose": "^5.3.12"
+  }
+}
