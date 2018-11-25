@@ -5,27 +5,31 @@ const mentor = require('../mentors')
 const get = () => Course.find({}).exec()
 
 const create = async (courseData) => {
-
 	const { mentors = [] } = courseData
-
 	const mentorPromises = mentors.map((mentorId) => {
 		return mentor.getById(mentorId)
 	})
-
 	const mentorPromisesResult = await Promise.all(mentorPromises)
-
 	const invalidMentors = mentorPromisesResult.reduce((reducer, current, index) => {
 		if (current == null ) return [ ...reducer, mentors[index] ]
-		return reducer
+			return reducer
 	}, [])
-
 	if(invalidMentors.length > 0 )throw new Error(`Invalid Mentors: ${ invalidMentors.join(',') } `)
-
-	const newCourse = new Course(courseData)
+		const newCourse = new Course(courseData)
 	return newCourse.save()
+}
+
+function del (id) {
+	return Course.findByIdAndDelete(id).exec()
+}
+
+function getById (id) {
+	return Course.findById(id).exec()
 }
 
 module.exports = {
 	get,
-	create
+	create,
+	del,
+	getById
 }

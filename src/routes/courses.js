@@ -24,7 +24,7 @@ router.post('/', async (req, res) => {
 			succes: true,
 			message: 'New course created',
 			payload: {
-				course: courseCreated
+				courses: courseCreated
 			}
 		})
 	} catch(error) {
@@ -33,6 +33,28 @@ router.post('/', async (req, res) => {
 			success: false,
 			message: 'Could not create course',
 			error: [ error ]
+		})
+	}
+})
+
+router.delete('/:id', async (req,res) => {
+	try {
+		const { id } = req.params
+		const courseDeleted = await courses.del(id)
+
+		res.json({
+			success: true,
+			message: 'Course deleted',
+			payload: { courses: courseDeleted }
+		})
+	} catch (error) {
+		res.status(400)
+		res.json ({
+			success: false,
+			message: 'Course could not be deleted',
+			payload: [
+				error
+			]
 		})
 	}
 })
